@@ -35,8 +35,6 @@ const add = async (req: Request, res: Response) => {
     try
     {
         const order: Order = {
-            product_id: req.body.product_id,
-            quantity: req.body.quantity,
             status: req.body.status,
             user_id: req.body.user_id
         }
@@ -51,19 +49,18 @@ const add = async (req: Request, res: Response) => {
     }
 }
 
-// const addProduct = async (_req: Request, res: Response) => {
-//     const orderId: string = _req.body.order_id
-//     const productId: string = _req.body.product_id
-//     const quantity: number = parseInt(_req.body.quantity)
+const addProduct = async (_req: Request, res: Response) => {
+    const orderId: string = _req.body.order_id
+    const productId: string = _req.body.product_id
+    const quantity: number = parseInt(_req.body.quantity)
   
-//     try {
-//       const addedProduct = await store.addProduct(quantity, orderId, productId)
-//       res.json(addedProduct)
-//     } catch(err) {
-//       res.status(400)
-//       res.json(err)
-//     }
-//   } 
+    try {
+      const addedProduct = await store.addProduct(quantity, orderId, productId)
+      res.json(addedProduct)
+    } catch(err) {
+      res.send(`${err}`)
+    }
+  } 
 
 
 const destroy = async (req: Request, res: Response) => {
@@ -77,8 +74,6 @@ const update = async (req: Request, res: Response) => {
     {
         const order: Order = {
             id: parseInt(req.params.id),
-            product_id: req.body.product_id,
-            quantity: req.body.quantity,
             status: req.body.status,
             user_id: req.body.user_id
         }
@@ -96,7 +91,7 @@ const order_routes = (app: express.Application) => {
     app.get('/orders', index),
     app.get('/order/:id', show),
     app.post('/orders', add),
-    // app.post('/orders/addproducts', addProduct)
+    app.post('/orders/addproducts', addProduct)
     app.delete('/order/:id', destroy),
     app.put('/order/:id', update)
 }

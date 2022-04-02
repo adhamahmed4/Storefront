@@ -3,7 +3,7 @@
     {
       "driver": "pg",
       "host": "127.0.0.1",
-      "database": "market",
+      "database": "storefront",
       "user": "postgres",
       "password": "0101307530"
     },
@@ -11,7 +11,7 @@
     {
       "driver": "pg",
       "host": "127.0.0.1",
-      "database": "postgres",
+      "database": "storefront",
       "user": "postgres",
       "password": "0101307530"
     }
