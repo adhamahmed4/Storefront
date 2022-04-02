@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+//@ts-ignore
 import client from "../database";
 import dotenv from 'dotenv'
 
@@ -21,6 +22,7 @@ export class UserStore {
     async create(u: User): Promise<User> {
         try {
       const sql = 'INSERT INTO users (firstName, lastName, password) VALUES($1, $2, $3) RETURNING *'
+      //@ts-ignore
       const conn = await client.connect()
       const hash = bcrypt.hashSync(
         u.password + PEPPER,
@@ -39,6 +41,7 @@ export class UserStore {
 
 
     async authenticate(firstName: string, lastName: string , password: string): Promise<User | null> {
+        //@ts-ignore
             const conn = await client.connect()
             const sql = 'SELECT password FROM users WHERE firstName=($1) AND lastName=($2)'
             const result = await conn.query(sql, [firstName, lastName])

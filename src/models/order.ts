@@ -1,3 +1,4 @@
+//@ts-ignore
 import client from "../database";
 
 export type Order = {
@@ -10,6 +11,7 @@ export class OrderStore {
     async index(): Promise<Order[]> {
         try
         {
+            //@ts-ignore
             const conn = await client.connect()
             const sql = 'SELECT * FROM orders'
             const result = await conn.query(sql)
@@ -27,6 +29,7 @@ export class OrderStore {
     async show(id: number): Promise<Order> {
         try {
         const sql = 'SELECT * FROM orders WHERE id=($1)'
+        //@ts-ignore
         const conn = await client.connect()
         const result = await conn.query(sql, [id])
         conn.release()
@@ -41,6 +44,7 @@ export class OrderStore {
       async create(o: Order): Promise<Order> {
         try {
       const sql = 'INSERT INTO orders (user_id, status) VALUES($1, $2) RETURNING *'
+      //@ts-ignore
       const conn = await client.connect()
       const result = await conn.query(sql, [o.user_id, o.status])
       conn.release()
@@ -54,6 +58,7 @@ export class OrderStore {
     async addProduct(quantity: number, orderId: string, productId: string): Promise<Order> {
         try {
             const ordersql = 'SELECT * FROM orders WHERE id=($1)'
+            //@ts-ignore
             const conn = await client.connect()
             const result = await conn.query(ordersql, [orderId])
             const order = result.rows[0]
@@ -68,6 +73,7 @@ export class OrderStore {
 
         try {
           const sql = 'INSERT INTO order_products (order_id, product_id, quantity) VALUES($1, $2, $3) RETURNING *'
+          //@ts-ignore
           const conn = await client.connect()
           const result = await conn.query(sql, [orderId, productId, quantity])
           const order = result.rows[0]
@@ -84,6 +90,7 @@ export class OrderStore {
     async delete(id: number): Promise<Order> {
         try {
       const sql = 'DELETE FROM orders WHERE id=($1) RETURNING *'
+      //@ts-ignore
       const conn = await client.connect()
       const result = await conn.query(sql, [id])
       conn.release()
@@ -98,6 +105,7 @@ export class OrderStore {
     async update(o: Order): Promise<Order> {
         try {
       const sql = 'UPDATE orders SET status = ($1) WHERE id = ($2) RETURNING *'
+      //@ts-ignore
       const conn = await client.connect()
       const result = await conn.query(sql, [o.status, o.id])
       conn.release()

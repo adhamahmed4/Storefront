@@ -38,11 +38,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var user_1 = require("../models/user");
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
+dotenv_1["default"].config();
 var store = new user_1.UserStore();
 var TOKEN_SECRET = process.env.TOKEN_SECRET;
 // const index = async (_req: Request, res: Response) => {
@@ -67,7 +67,7 @@ var authenticate = function (req, res) { return __awaiter(void 0, void 0, void 0
                 ];
             case 2:
                 u = _a.sent();
-                token = jsonwebtoken_1.default.sign({ user: u }, TOKEN_SECRET);
+                token = jsonwebtoken_1["default"].sign({ user: u }, TOKEN_SECRET);
                 res.json(token);
                 return [3 /*break*/, 4];
             case 3:
@@ -98,7 +98,7 @@ var add = function (req, res) { return __awaiter(void 0, void 0, void 0, functio
                 ];
             case 2:
                 newuser = _a.sent();
-                token = jsonwebtoken_1.default.sign({ user: newuser }, TOKEN_SECRET);
+                token = jsonwebtoken_1["default"].sign({ user: newuser }, TOKEN_SECRET);
                 res.json(token);
                 return [3 /*break*/, 4];
             case 3:
@@ -119,4 +119,4 @@ var user_routes = function (app) {
     app.get('/users/authenticate', authenticate);
     app.post('/users/adduser', add);
 };
-exports.default = user_routes;
+exports["default"] = user_routes;

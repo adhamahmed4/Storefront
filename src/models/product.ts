@@ -1,3 +1,4 @@
+//@ts-ignore
 import client from "../database";
 
 export type Product = {
@@ -11,6 +12,7 @@ export class ProductStore {
     async index(): Promise<Product[]> {
         try
         {
+            //@ts-ignore
             const conn = await client.connect()
             const sql = 'SELECT * FROM products'
             const result = await conn.query(sql)
@@ -28,6 +30,7 @@ export class ProductStore {
     async show(id: Number): Promise<Product> {
         try {
         const sql = 'SELECT * FROM products WHERE id=($1)'
+        //@ts-ignore
         const conn = await client.connect()
         const result = await conn.query(sql, [id])
         conn.release()
@@ -42,6 +45,7 @@ export class ProductStore {
       async create(p: Product): Promise<Product> {
         try {
       const sql = 'INSERT INTO products (name, price, category) VALUES($1, $2, $3) RETURNING *'
+      //@ts-ignore
       const conn = await client.connect()
       const result = await conn.query(sql, [p.name, p.price, p.category])
       conn.release()
@@ -56,6 +60,7 @@ export class ProductStore {
     async delete(id: number): Promise<Product> {
         try {
       const sql = 'DELETE FROM products WHERE id=($1) RETURNING *'
+      //@ts-ignore
       const conn = await client.connect()
       const result = await conn.query(sql, [id])
       conn.release()
@@ -70,6 +75,7 @@ export class ProductStore {
     async update(p: Product): Promise<Product> {
         try {
       const sql = 'UPDATE products SET name = ($1), price = ($2) , category = ($3) WHERE id = ($4) RETURNING *'
+      //@ts-ignore
       const conn = await client.connect()
       const result = await conn.query(sql, [p.name,p.price,p.category,p.id])
       conn.release()

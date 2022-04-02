@@ -38,12 +38,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.UserStore = void 0;
 var bcrypt_1 = __importDefault(require("bcrypt"));
+//@ts-ignore
 var database_1 = __importDefault(require("../database"));
 var dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
+dotenv_1["default"].config();
 var _a = process.env, SALT_ROUNDS = _a.SALT_ROUNDS, PEPPER = _a.PEPPER;
 var UserStore = /** @class */ (function () {
     function UserStore() {
@@ -56,10 +57,10 @@ var UserStore = /** @class */ (function () {
                     case 0:
                         _a.trys.push([0, 3, , 4]);
                         sql = 'INSERT INTO users (firstName, lastName, password) VALUES($1, $2, $3) RETURNING *';
-                        return [4 /*yield*/, database_1.default.connect()];
+                        return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
-                        hash = bcrypt_1.default.hashSync(u.password + PEPPER, 
+                        hash = bcrypt_1["default"].hashSync(u.password + PEPPER, 
                         //@ts-ignore
                         parseInt(SALT_ROUNDS));
                         return [4 /*yield*/, conn.query(sql, [u.firstName, u.lastName, hash])];
@@ -81,7 +82,7 @@ var UserStore = /** @class */ (function () {
             var conn, sql, result, user;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, database_1.default.connect()];
+                    case 0: return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
                         sql = 'SELECT password FROM users WHERE firstName=($1) AND lastName=($2)';
@@ -90,7 +91,7 @@ var UserStore = /** @class */ (function () {
                         result = _a.sent();
                         if (result.rows.length) {
                             user = result.rows[0];
-                            if (bcrypt_1.default.compareSync(password + PEPPER, user.password)) {
+                            if (bcrypt_1["default"].compareSync(password + PEPPER, user.password)) {
                                 return [2 /*return*/, user];
                             }
                         }

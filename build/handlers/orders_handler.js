@@ -38,11 +38,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var order_1 = require("../models/order");
 var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
+dotenv_1["default"].config();
 var store = new order_1.OrderStore();
 var index = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var orders;
@@ -79,7 +79,7 @@ var add = function (req, res) { return __awaiter(void 0, void 0, void 0, functio
                     authorizationHeader = req.headers.authorization;
                     token = authorizationHeader.split(' ')[1];
                     //@ts-ignore
-                    jsonwebtoken_1.default.verify(token, process.env.TOKEN_SECRET);
+                    jsonwebtoken_1["default"].verify(token, process.env.TOKEN_SECRET);
                 }
                 catch (err) {
                     res.status(401);
@@ -137,7 +137,7 @@ var destroy = function (req, res) { return __awaiter(void 0, void 0, void 0, fun
         switch (_a.label) {
             case 0:
                 id = parseInt(req.params.id);
-                return [4 /*yield*/, store.delete(id)];
+                return [4 /*yield*/, store["delete"](id)];
             case 1:
                 order = _a.sent();
                 res.json(order);
@@ -174,7 +174,7 @@ var order_routes = function (app) {
         app.get('/order/:id', show),
         app.post('/orders', add),
         app.post('/orders/addproducts', addProduct);
-    app.delete('/order/:id', destroy),
+    app["delete"]('/order/:id', destroy),
         app.put('/order/:id', update);
 };
-exports.default = order_routes;
+exports["default"] = order_routes;
