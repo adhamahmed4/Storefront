@@ -57,7 +57,7 @@ ENV=dev
 After start up, the server will start on port `3000` and the database on port `5432`
 
 ## Endpoint Access
-All endpoints are described in the [REQUIREMENT.md](REQUIREMENTS.md) file. 
+All endpoints are described in the [REQUIRMENTS.md](REQUIRMENTS.md) file. 
 
 ## Token and Authentication
 To create the first user in the system, you shuold pass this token `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJmaXJzdG5hbWUiOiJhZGhhbSIsImxhc3RuYW1lIjoiYWhtZWQiLCJwYXNzd29yZCI6IiQyYiQxMCRrZzFGNjZkSWpyNVcwYWlNQjh2TVQuaDlReFBvZldNakY5MnUvOE1QdFd0VDlsUEhieUJqUyJ9LCJpYXQiOjE2NDkxODkzMDJ9.e-W58nwHitciSl1UvM8JWEe2teqvX3rZhQU_LrQB8GA` in Authorization header.
