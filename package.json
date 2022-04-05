@@ -6,10 +6,11 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node src/server.ts",
-    "db-create": "db-migrate db:create testDB",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./build --onSuccess \"node ./build/server.js\"",
     "jasmine": "jasmine",
-    "test": "set ENV=test&& db-migrate db:create storefront_test && db-migrate --env test up && npm run build && npm run jasmine && db-migrate db:drop storefront_test",
+    "test": "set ENV=test&& db-migrate --env test up && npm run build && npm run jasmine && db-migrate --env test reset",
+    "drop_dev":"db-migrate db:drop storefront",
+    "drop_test":"db-migrate db:drop storefront_test",
     "tsc": "tsc"
   },
   "keywords": [],

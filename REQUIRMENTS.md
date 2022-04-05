@@ -44,6 +44,7 @@ Table: orders (id:serial[primary key], user_id:bigint, price:integer, status:var
 ```
 ### [ADDED] order_products
 * id
+* id of order
 * id of each product in the order
 * quantity of each product in the order
 ```

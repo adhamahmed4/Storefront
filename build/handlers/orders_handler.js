@@ -131,14 +131,25 @@ var add = function (req, res) { return __awaiter(void 0, void 0, void 0, functio
         }
     });
 }); };
-var addProduct = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var orderId, productId, quantity, addedProduct, err_1;
+var addProduct = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var authorizationHeader, token, orderId, productId, quantity, addedProduct, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                orderId = _req.body.order_id;
-                productId = _req.body.product_id;
-                quantity = parseInt(_req.body.quantity);
+                try {
+                    authorizationHeader = req.headers.authorization;
+                    token = authorizationHeader.split(' ')[1];
+                    //@ts-ignore
+                    jsonwebtoken_1["default"].verify(token, process.env.TOKEN_SECRET);
+                }
+                catch (err) {
+                    res.status(401);
+                    res.json("Access denied, invalid token ".concat(err));
+                    return [2 /*return*/];
+                }
+                orderId = req.body.order_id;
+                productId = req.body.product_id;
+                quantity = parseInt(req.body.quantity);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
