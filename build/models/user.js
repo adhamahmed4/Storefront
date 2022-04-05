@@ -49,9 +49,57 @@ var _a = process.env, SALT_ROUNDS = _a.SALT_ROUNDS, PEPPER = _a.PEPPER;
 var UserStore = /** @class */ (function () {
     function UserStore() {
     }
+    UserStore.prototype.index = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var conn, sql, result, err_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, database_1["default"].connect()];
+                    case 1:
+                        conn = _a.sent();
+                        sql = 'SELECT * FROM users';
+                        return [4 /*yield*/, conn.query(sql)];
+                    case 2:
+                        result = _a.sent();
+                        conn.release();
+                        return [2 /*return*/, result.rows];
+                    case 3:
+                        err_1 = _a.sent();
+                        throw new Error("Cannot get users ".concat(err_1));
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    UserStore.prototype.show = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var sql, conn, result, err_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        sql = 'SELECT * FROM users WHERE id=($1)';
+                        return [4 /*yield*/, database_1["default"].connect()];
+                    case 1:
+                        conn = _a.sent();
+                        return [4 /*yield*/, conn.query(sql, [id])];
+                    case 2:
+                        result = _a.sent();
+                        conn.release();
+                        return [2 /*return*/, result.rows[0]];
+                    case 3:
+                        err_2 = _a.sent();
+                        throw new Error("Could not find product ".concat(id, ". Error: ").concat(err_2));
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
     UserStore.prototype.create = function (u) {
         return __awaiter(this, void 0, void 0, function () {
-            var sql, conn, hash, result, user, err_1;
+            var sql, conn, hash, result, user, err_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -70,33 +118,9 @@ var UserStore = /** @class */ (function () {
                         conn.release();
                         return [2 /*return*/, user];
                     case 3:
-                        err_1 = _a.sent();
-                        throw new Error("Unable to create user ".concat(u.firstName, ". Error: ").concat(err_1));
+                        err_3 = _a.sent();
+                        throw new Error("Unable to create user ".concat(u.firstName, ". Error: ").concat(err_3));
                     case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    UserStore.prototype.authenticate = function (firstName, lastName, password) {
-        return __awaiter(this, void 0, void 0, function () {
-            var conn, sql, result, user;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, database_1["default"].connect()];
-                    case 1:
-                        conn = _a.sent();
-                        sql = 'SELECT password FROM users WHERE firstName=($1) AND lastName=($2)';
-                        return [4 /*yield*/, conn.query(sql, [firstName, lastName])];
-                    case 2:
-                        result = _a.sent();
-                        if (result.rows.length) {
-                            user = result.rows[0];
-                            if (bcrypt_1["default"].compareSync(password + PEPPER, user.password)) {
-                                return [2 /*return*/, user];
-                            }
-                        }
-                        conn.release();
-                        return [2 /*return*/, null];
                 }
             });
         });

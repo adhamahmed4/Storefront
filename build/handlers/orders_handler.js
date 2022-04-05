@@ -44,11 +44,24 @@ var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1["default"].config();
 var store = new order_1.OrderStore();
-var index = function (_req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var orders;
+var getCompletedOrders = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var authorizationHeader, token, id, orders;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, store.index()];
+            case 0:
+                try {
+                    authorizationHeader = req.headers.authorization;
+                    token = authorizationHeader.split(' ')[1];
+                    //@ts-ignore
+                    jsonwebtoken_1["default"].verify(token, process.env.TOKEN_SECRET);
+                }
+                catch (err) {
+                    res.status(401);
+                    res.json("Access denied, invalid token ".concat(err));
+                    return [2 /*return*/];
+                }
+                id = parseInt(req.params.id);
+                return [4 /*yield*/, store.getCompletedOrders(id)];
             case 1:
                 orders = _a.sent();
                 res.json(orders);
@@ -56,13 +69,24 @@ var index = function (_req, res) { return __awaiter(void 0, void 0, void 0, func
         }
     });
 }); };
-var show = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, order;
+var getCurrentOrder = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var authorizationHeader, token, id, order;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                try {
+                    authorizationHeader = req.headers.authorization;
+                    token = authorizationHeader.split(' ')[1];
+                    //@ts-ignore
+                    jsonwebtoken_1["default"].verify(token, process.env.TOKEN_SECRET);
+                }
+                catch (err) {
+                    res.status(401);
+                    res.json("Access denied, invalid token ".concat(err));
+                    return [2 /*return*/];
+                }
                 id = parseInt(req.params.id);
-                return [4 /*yield*/, store.show(id)];
+                return [4 /*yield*/, store.getCurrentOrder(id)];
             case 1:
                 order = _a.sent();
                 res.json(order);
@@ -90,8 +114,8 @@ var add = function (req, res) { return __awaiter(void 0, void 0, void 0, functio
             case 1:
                 _a.trys.push([1, 3, , 4]);
                 order = {
-                    status: req.body.status,
-                    user_id: req.body.user_id
+                    user_id: req.body.user_id,
+                    status: req.body.status
                 };
                 return [4 /*yield*/, store.create(order)];
             case 2:
@@ -131,50 +155,10 @@ var addProduct = function (_req, res) { return __awaiter(void 0, void 0, void 0,
         }
     });
 }); };
-var destroy = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, order;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                id = parseInt(req.params.id);
-                return [4 /*yield*/, store["delete"](id)];
-            case 1:
-                order = _a.sent();
-                res.json(order);
-                return [2 /*return*/];
-        }
-    });
-}); };
-var update = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var order, neworder, error_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                order = {
-                    id: parseInt(req.params.id),
-                    status: req.body.status,
-                    user_id: req.body.user_id
-                };
-                return [4 /*yield*/, store.update(order)];
-            case 1:
-                neworder = _a.sent();
-                res.json(neworder);
-                return [3 /*break*/, 3];
-            case 2:
-                error_2 = _a.sent();
-                res.status(500).send(error_2);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
 var order_routes = function (app) {
-    app.get('/orders', index),
-        app.get('/order/:id', show),
+    app.get('/orders/:id', getCompletedOrders),
+        app.get('/order/:id', getCurrentOrder),
         app.post('/orders', add),
         app.post('/orders/addproducts', addProduct);
-    app["delete"]('/order/:id', destroy),
-        app.put('/order/:id', update);
 };
 exports["default"] = order_routes;

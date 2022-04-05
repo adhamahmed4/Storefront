@@ -18,6 +18,12 @@ const show = async (req: Request, res: Response) => {
     res.json(product)
 }
 
+const getProductByCategory = async (req: Request, res: Response) => {
+    const category = req.params.category
+    const products = await store.getProductByCategory(category)
+    res.json(products)
+}
+
 const add = async (req: Request, res: Response) => {
     
     try {
@@ -51,36 +57,11 @@ const add = async (req: Request, res: Response) => {
 }
 
 
-const destroy = async (req: Request, res: Response) => {
-    const id = parseInt(req.params.id)
-    const product = await store.delete(id)
-    res.json(product)
-}
-
-const update = async (req: Request, res: Response) => {
-    try
-    {
-        const product: Product = {
-            id: parseInt(req.params.id),
-            name: req.body.name,
-            price: req.body.price,
-            category: req.body.category
-        }
-        const newproduct = await store.update(product)
-        res.json(newproduct)
-    }
-    catch(error)
-    {
-        res.status(500).send(error);
-    }
-}
-
 const product_routes = (app: express.Application) => {
     app.get('/products', index),
     app.get('/product/:id', show),
-    app.post('/products', add),
-    app.delete('/product/:id', destroy),
-    app.put('/product/:id', update)
+    app.get('/products/:category', getProductByCategory),
+    app.post('/products', add)
 }
 
 

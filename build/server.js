@@ -8,15 +8,18 @@ var body_parser_1 = __importDefault(require("body-parser"));
 var orders_handler_1 = __importDefault(require("./handlers/orders_handler"));
 var products_handler_1 = __importDefault(require("./handlers/products_handler"));
 var users_handler_1 = __importDefault(require("./handlers/users_handler"));
+var dashboard_1 = __importDefault(require("./handlers/dashboard"));
 var app = (0, express_1["default"])();
 var address = "0.0.0.0:3000";
 app.use(body_parser_1["default"].json());
 (0, orders_handler_1["default"])(app);
 (0, products_handler_1["default"])(app);
 (0, users_handler_1["default"])(app);
+(0, dashboard_1["default"])(app);
 app.get('/', function (req, res) {
     res.send('Hello World!');
 });
 app.listen(3000, function () {
     console.log("starting app on: ".concat(address));
 });
+exports["default"] = app;

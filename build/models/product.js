@@ -93,9 +93,33 @@ var ProductStore = /** @class */ (function () {
             });
         });
     };
-    ProductStore.prototype.create = function (p) {
+    ProductStore.prototype.getProductByCategory = function (category) {
         return __awaiter(this, void 0, void 0, function () {
             var sql, conn, result, err_3;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        sql = 'SELECT * FROM products WHERE category = ($1)';
+                        return [4 /*yield*/, database_1["default"].connect()];
+                    case 1:
+                        conn = _a.sent();
+                        return [4 /*yield*/, conn.query(sql, [category])];
+                    case 2:
+                        result = _a.sent();
+                        conn.release();
+                        return [2 /*return*/, result.rows];
+                    case 3:
+                        err_3 = _a.sent();
+                        throw new Error("Could not find product category ".concat(category, ". Error: ").concat(err_3));
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ProductStore.prototype.create = function (p) {
+        return __awaiter(this, void 0, void 0, function () {
+            var sql, conn, result, err_4;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -110,56 +134,8 @@ var ProductStore = /** @class */ (function () {
                         conn.release();
                         return [2 /*return*/, result.rows[0]];
                     case 3:
-                        err_3 = _a.sent();
-                        throw new Error("Could not add new product ".concat(name, ". Error: ").concat(err_3));
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    ProductStore.prototype["delete"] = function (id) {
-        return __awaiter(this, void 0, void 0, function () {
-            var sql, conn, result, err_4;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        sql = 'DELETE FROM products WHERE id=($1) RETURNING *';
-                        return [4 /*yield*/, database_1["default"].connect()];
-                    case 1:
-                        conn = _a.sent();
-                        return [4 /*yield*/, conn.query(sql, [id])];
-                    case 2:
-                        result = _a.sent();
-                        conn.release();
-                        return [2 /*return*/, result.rows[0]];
-                    case 3:
                         err_4 = _a.sent();
-                        throw new Error("Could not delete product ".concat(id, ". Error: ").concat(err_4));
-                    case 4: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    ProductStore.prototype.update = function (p) {
-        return __awaiter(this, void 0, void 0, function () {
-            var sql, conn, result, err_5;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        sql = 'UPDATE products SET name = ($1), price = ($2) , category = ($3) WHERE id = ($4) RETURNING *';
-                        return [4 /*yield*/, database_1["default"].connect()];
-                    case 1:
-                        conn = _a.sent();
-                        return [4 /*yield*/, conn.query(sql, [p.name, p.price, p.category, p.id])];
-                    case 2:
-                        result = _a.sent();
-                        conn.release();
-                        return [2 /*return*/, result.rows[0]];
-                    case 3:
-                        err_5 = _a.sent();
-                        throw new Error("Could not update product ".concat(p.id, ". Error: ").concat(err_5));
+                        throw new Error("Could not add new product ".concat(name, ". Error: ").concat(err_4));
                     case 4: return [2 /*return*/];
                 }
             });

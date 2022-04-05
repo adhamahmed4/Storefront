@@ -70,6 +70,20 @@ var show = function (req, res) { return __awaiter(void 0, void 0, void 0, functi
         }
     });
 }); };
+var getProductByCategory = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var category, products;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                category = req.params.category;
+                return [4 /*yield*/, store.getProductByCategory(category)];
+            case 1:
+                products = _a.sent();
+                res.json(products);
+                return [2 /*return*/];
+        }
+    });
+}); };
 var add = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var authorizationHeader, token, product, newproduct, error_1;
     return __generator(this, function (_a) {
@@ -108,50 +122,10 @@ var add = function (req, res) { return __awaiter(void 0, void 0, void 0, functio
         }
     });
 }); };
-var destroy = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, product;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                id = parseInt(req.params.id);
-                return [4 /*yield*/, store["delete"](id)];
-            case 1:
-                product = _a.sent();
-                res.json(product);
-                return [2 /*return*/];
-        }
-    });
-}); };
-var update = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var product, newproduct, error_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                product = {
-                    id: parseInt(req.params.id),
-                    name: req.body.name,
-                    price: req.body.price,
-                    category: req.body.category
-                };
-                return [4 /*yield*/, store.update(product)];
-            case 1:
-                newproduct = _a.sent();
-                res.json(newproduct);
-                return [3 /*break*/, 3];
-            case 2:
-                error_2 = _a.sent();
-                res.status(500).send(error_2);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
 var product_routes = function (app) {
     app.get('/products', index),
         app.get('/product/:id', show),
-        app.post('/products', add),
-        app["delete"]('/product/:id', destroy),
-        app.put('/product/:id', update);
+        app.get('/products/:category', getProductByCategory),
+        app.post('/products', add);
 };
 exports["default"] = product_routes;

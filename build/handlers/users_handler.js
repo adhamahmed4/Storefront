@@ -49,74 +49,124 @@ var TOKEN_SECRET = process.env.TOKEN_SECRET;
 //     const users = await store.index()
 //     res.json(users)
 // }
-var authenticate = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, u, token, error_1;
+// const authenticate = async (req: Request, res: Response) => {
+//     const user:User = {
+//         firstName: req.body.firstName,
+//         lastName: req.body.lastName,
+//         password: req.body.password
+//     }
+//     try {
+//         const u = await store.authenticate(user.firstName, user.lastName , user.password)
+//         //@ts-ignore
+//         var token = jwt.sign({ user: u }, TOKEN_SECRET);
+//         res.json(token)
+//     } catch(error) {
+//         res.status(401)
+//         res.json({ error })
+//     }
+// }
+var index = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var authorizationHeader, token, users;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                user = {
-                    firstName: req.body.firstName,
-                    lastName: req.body.lastName,
-                    password: req.body.password
-                };
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, store.authenticate(user.firstName, user.lastName, user.password)
+                try {
+                    authorizationHeader = req.headers.authorization;
+                    token = authorizationHeader.split(' ')[1];
                     //@ts-ignore
-                ];
-            case 2:
-                u = _a.sent();
-                token = jsonwebtoken_1["default"].sign({ user: u }, TOKEN_SECRET);
-                res.json(token);
-                return [3 /*break*/, 4];
-            case 3:
-                error_1 = _a.sent();
-                res.status(401);
-                res.json({ error: error_1 });
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                    jsonwebtoken_1["default"].verify(token, process.env.TOKEN_SECRET);
+                }
+                catch (err) {
+                    res.status(401);
+                    res.json("Access denied, invalid token ".concat(err));
+                    return [2 /*return*/];
+                }
+                return [4 /*yield*/, store.index()];
+            case 1:
+                users = _a.sent();
+                res.json(users);
+                return [2 /*return*/];
+        }
+    });
+}); };
+var show = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var authorizationHeader, token, id, user;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                try {
+                    authorizationHeader = req.headers.authorization;
+                    token = authorizationHeader.split(' ')[1];
+                    //@ts-ignore
+                    jsonwebtoken_1["default"].verify(token, process.env.TOKEN_SECRET);
+                }
+                catch (err) {
+                    res.status(401);
+                    res.json("Access denied, invalid token ".concat(err));
+                    return [2 /*return*/];
+                }
+                id = Number(req.params.id);
+                return [4 /*yield*/, store.show(id)];
+            case 1:
+                user = _a.sent();
+                res.json(user);
+                return [2 /*return*/];
         }
     });
 }); };
 var add = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, newuser, token, err_1, error_2;
+    var authorizationHeader, token_1, user, newuser, token, err_1, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 5, , 6]);
+                try {
+                    authorizationHeader = req.headers.authorization;
+                    token_1 = authorizationHeader.split(' ')[1];
+                    //@ts-ignore
+                    jsonwebtoken_1["default"].verify(token_1, process.env.TOKEN_SECRET);
+                }
+                catch (err) {
+                    res.status(401);
+                    res.json("Access denied, invalid token ".concat(err));
+                    return [2 /*return*/];
+                }
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 6, , 7]);
                 user = {
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
                     password: req.body.password
                 };
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
+                _a.label = 2;
+            case 2:
+                _a.trys.push([2, 4, , 5]);
                 return [4 /*yield*/, store.create(user)
                     //@ts-ignore
                 ];
-            case 2:
+            case 3:
                 newuser = _a.sent();
                 token = jsonwebtoken_1["default"].sign({ user: newuser }, TOKEN_SECRET);
                 res.json(token);
-                return [3 /*break*/, 4];
-            case 3:
+                return [3 /*break*/, 5];
+            case 4:
                 err_1 = _a.sent();
                 res.status(400);
                 res.json("error" + user);
-                return [3 /*break*/, 4];
-            case 4: return [3 /*break*/, 6];
-            case 5:
-                error_2 = _a.sent();
-                res.status(500).send(error_2);
-                return [3 /*break*/, 6];
-            case 6: return [2 /*return*/];
+                return [3 /*break*/, 5];
+            case 5: return [3 /*break*/, 7];
+            case 6:
+                error_1 = _a.sent();
+                res.status(500).send(error_1);
+                return [3 /*break*/, 7];
+            case 7: return [2 /*return*/];
         }
     });
 }); };
 var user_routes = function (app) {
-    app.get('/users/authenticate', authenticate);
+    // app.get('/users/authenticate', authenticate)
+    app.get('/users', index),
+        app.get('/user/:id', show);
     app.post('/users/adduser', add);
 };
 exports["default"] = user_routes;

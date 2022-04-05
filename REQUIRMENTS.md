@@ -5,18 +5,19 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 API Endpoints
 Products
-Index
-Show
-Create [token required]
-[OPTIONAL] Top 5 most popular products
-[OPTIONAL] Products by category (args: product category)
+Index '/products  [GET]'
+Show '/product/:id  [GET]'
+Create [token required] '/products  [POST]' {name: string, price: number, category: string}
+[OPTIONAL] Top 5 most popular products '/most_popular_products  [GET]'
+[OPTIONAL] Products by category (args: product category) '/products/:category  [GET]'
 Users
-Index [token required]
-Show [token required]
-Create N[token required]
+Index [token required] '/users  [GET]'
+Show [token required] '/user/:id  [GET]'
+Create N[token required] '/users/adduser [POST]' {firstName: string, lastName: string, password: string}
 Orders
-Current Order by user (args: user id)[token required]
-[OPTIONAL] Completed Orders by user (args: user id)[token required]
+Current Order by user (args: user id)[token required] '/order/:id  [GET]'
+[OPTIONAL] Completed Orders by user (args: user id)[token required] '/orders/:id [GET]'
+[ADDED] Add product to order [token required] '/orders/addproduct  [POST]' {quantity: number, order_id: number, product_id: number}
 Data Shapes
 Product
 id
@@ -30,7 +31,9 @@ lastName
 password
 Orders
 id
-id of each product in the order
-quantity of each product in the order
 user_id
 status of order (active or complete)
+[ADDED] order_products
+id
+id of each product in the order
+quantity of each product in the order
