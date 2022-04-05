@@ -3,21 +3,21 @@ The company stakeholders want to create an online storefront to showcase their g
 
 These are the notes from a meeting with the frontend developer that describe what endpoints the API needs to supply, as well as data shapes the frontend and backend have agreed meet the requirements of the application.
 
-# API Endpoints
+## API Endpoints
 ### Products
-* Index '/products  [GET]'
-* Show '/product/:id  [GET]'
-* Create [token required] '/products  [POST]' {name: string, price: number, category: string}
-* [OPTIONAL] Top 5 most popular products '/most_popular_products  [GET]'
-* [OPTIONAL] Products by category (args: product category) '/products/:category  [GET]'<br />
+* Index `'/products'  [GET]'`
+* Show `'/product/:id'  [GET]`
+* Create [token required] `'/products'  [POST]` {name: string, price: number, category: string}
+* [OPTIONAL] Top 5 most popular products `'/most_popular_products'  [GET]`
+* [OPTIONAL] Products by category (args: product category) `'/products/:category'  [GET]`<br />
 ### Users
-* Index [token required] '/users  [GET]'
-* Show [token required] '/user/:id  [GET]'
-* Create N[token required] '/users/adduser [POST]' {firstName: string, lastName: string, password: string}<br />
+* Index [token required] `'/users'  [GET]`
+* Show [token required] `'/user/:id'  [GET]`
+* Create N[token required] `'/users/adduser' [POST]` {firstName: string, lastName: string, password: string}<br />
 ### Orders
-* Current Order by user (args: user id)[token required] '/order/:id  [GET]'
-* [OPTIONAL] Completed Orders by user (args: user id)[token required] '/orders/:id [GET]'
-* [ADDED] Add product to order [token required] '/orders/addproduct  [POST]' {quantity: number, order_id: number, product_id: number}
+* Current Order by user (args: user id)[token required] `'/order/:id'  [GET]`
+* [OPTIONAL] Completed Orders by user (args: user id)[token required] `'/orders/:id' [GET]`
+* [ADDED] Add product to order [token required] `'/orders/addproduct'  [POST]` {quantity: number, order_id: number, product_id: number}
 # Data Shapes
 ### Product
 * id
