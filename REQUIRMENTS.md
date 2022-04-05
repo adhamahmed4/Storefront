@@ -9,11 +9,11 @@ These are the notes from a meeting with the frontend developer that describe wha
 * Show '/product/:id  [GET]'
 * Create [token required] '/products  [POST]' {name: string, price: number, category: string}
 * [OPTIONAL] Top 5 most popular products '/most_popular_products  [GET]'
-* [OPTIONAL] Products by category (args: product category) '/products/:category  [GET]'
+* [OPTIONAL] Products by category (args: product category) '/products/:category  [GET]'<br />
 **Users**
 * Index [token required] '/users  [GET]'
 * Show [token required] '/user/:id  [GET]'
-* Create N[token required] '/users/adduser [POST]' {firstName: string, lastName: string, password: string}
+* Create N[token required] '/users/adduser [POST]' {firstName: string, lastName: string, password: string}<br />
 **Orders**
 * Current Order by user (args: user id)[token required] '/order/:id  [GET]'
 * [OPTIONAL] Completed Orders by user (args: user id)[token required] '/orders/:id [GET]'
@@ -23,16 +23,16 @@ These are the notes from a meeting with the frontend developer that describe wha
 * id
 * name
 * price
-[OPTIONAL] category
+[OPTIONAL] category<br />
 **User**
 * id
 * firstName
 * lastName
-* password
+* password<br />
 **Orders**
 * id
 * user_id
-* status of order (active or complete)
+* status of order (active or complete)<br />
 **[ADDED] order_products**
 * id
 * id of each product in the order
