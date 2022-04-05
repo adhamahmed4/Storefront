@@ -5,7 +5,7 @@ This is a backend API build in Nodejs for an online store. It exposes a RESTful 
 The database schema and and API route information can be found in the [REQUIRMENTS.md](REQUIRMENTS.md) 
 
 ## Installation Instructions
-This section contains all the packages used in this project and how to install them. However, you can fork this repo and run the following command at the root directory to install all packages.
+You can fork this repo and run the following command at the root directory to install all packages.
 
 `npm install`
 
@@ -35,7 +35,7 @@ Navigate to the root directory and run the command below to migrate the database
 ## Enviromental Variables Set up
 Bellow are the environmental variables that needs to be set in a `.env` file. This is the default setting that I used for development, but you can change it to what works for you. 
 
-**NB:** The given values are used in developement and testing but not in production. 
+**NB:** The given values are used in developement and testing. 
 ```
 POSTGRES_HOST=127.0.0.1
 POSTGRES_DB=storefront
@@ -85,11 +85,5 @@ Environment variables are set in the `.env` file and added in `.gitignore` so th
 I had set up two databases, one for development and the other for testing. During testing, I had to make sure the testing database is used instead of the developement database. 
 
 To acheive this, I set up a variable in the `.env` file which is by default set to `dev`. During testing, the command `npm run test` will set this variable to `test` in the package.json. Here is the complete command.
-`set ENV=test&& db-migrate db:create storefront_test && db-migrate --env test up && npm run build && npm run jasmine && db-migrate db:drop storefront_test`
+`set ENV=test&& db-migrate --env test up && npm run build && npm run jasmine && db-migrate --env test reset`
 
-
-### Droping dev and test databases
-
-Run `npm run drop_test` to drop the test database.
-
-Run `npm run drop_dev` to drop the dev database.
