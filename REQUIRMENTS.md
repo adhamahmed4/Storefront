@@ -10,7 +10,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 * Create [token required] '/products  [POST]' {name: string, price: number, category: string}
 * [OPTIONAL] Top 5 most popular products '/most_popular_products  [GET]'
 * [OPTIONAL] Products by category (args: product category) '/products/:category  [GET]'<br />
-**Users**
+### Users
 * Index [token required] '/users  [GET]'
 * Show [token required] '/user/:id  [GET]'
 * Create N[token required] '/users/adduser [POST]' {firstName: string, lastName: string, password: string}<br />
