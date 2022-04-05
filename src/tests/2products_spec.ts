@@ -11,6 +11,10 @@ describe("Product Model", () => {
     expect(productStore.show).toBeDefined();
   });
 
+  it('should have a getProductByCategory method', () => {
+    expect(productStore.getProductByCategory).toBeDefined();
+  });
+
   it('should have a create method', () => {
     expect(productStore.create).toBeDefined();
   });
@@ -46,6 +50,15 @@ describe("Product Model", () => {
        price: 12, 
        category: 'Beverages' 
       });
+  });
+  it('getProductByCategory method should list all products with given category', async () => {
+    const result = await productStore.getProductByCategory('Beverages');
+    expect(result).toEqual([{
+       id: 1, 
+       name: 'Milk', 
+       price: 12, 
+       category: 'Beverages' 
+      }]);
   });
 });
 

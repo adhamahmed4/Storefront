@@ -14,6 +14,10 @@ describe("Order Model", () => {
     it('should have a create method', () => {
       expect(orderStore.create).toBeDefined();
     });
+
+    it('should have an addProduct method', () => {
+      expect(orderStore.addProduct).toBeDefined();
+    });
   
     it('create method should add an active order', async () => {
       const result = await orderStore.create({
@@ -54,5 +58,14 @@ describe("Order Model", () => {
         user_id: '1',
         status: 'complete'
         }]);
+    });
+    it('addProduct method should add a product to an order', async () => {
+      const result = await orderStore.addProduct(15,'1','1');
+      expect(result).toEqual({
+        id: 1,
+        quantity: 15,
+        order_id: '1',
+        product_id: '1'
+        });
     });
   });
