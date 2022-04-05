@@ -24,16 +24,28 @@ These are the notes from a meeting with the frontend developer that describe wha
 * name
 * price
 [OPTIONAL] category<br />
+```
+Table: products (id:serial[primary key], name:varchar(100), price:integer, category:varchar(50))
+```
 ### User
 * id
 * firstName
 * lastName
 * password<br />
+```
+Table: users (id:serial[primary key], firstName:varchar(100), lastName:varchar(100), password:varchar(200))
+```
 ### Orders
 * id
 * user_id
 * status of order (active or complete)<br />
+```
+Table: orders (id:serial[primary key], user_id:bigint, price:integer, status:varchar(100))
+```
 ### [ADDED] order_products
 * id
 * id of each product in the order
 * quantity of each product in the order
+```
+Table: order_products (id:serial[primary key], quantity:integer, order_id:bigint, product_id:bigint)
+```
