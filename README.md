@@ -2,7 +2,7 @@
 
 This is a backend API build in Nodejs for an online store. It exposes a RESTful API that will be used by the frontend developer on the frontend. 
 
-The database schema and and API route information can be found in the [REQUIREMENT.md](REQUIREMENTS.md) 
+The database schema and and API route information can be found in the [REQUIRMENTS.md](REQUIRMENTS.md) 
 
 ## Installation Instructions
 This section contains all the packages used in this project and how to install them. However, you can fork this repo and run the following command at the root directory to install all packages.
