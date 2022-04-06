@@ -60,7 +60,6 @@ After start up, the server will start on port `3000` and the database on port `5
 All endpoints are described in the [REQUIRMENTS.md](REQUIRMENTS.md) file. 
 
 ## Token and Authentication
-To create the first user in the system, you should pass this token `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJmaXJzdG5hbWUiOiJhZGhhbSIsImxhc3RuYW1lIjoiYWhtZWQiLCJwYXNzd29yZCI6IiQyYiQxMCRrZzFGNjZkSWpyNVcwYWlNQjh2TVQuaDlReFBvZldNakY5MnUvOE1QdFd0VDlsUEhieUJqUyJ9LCJpYXQiOjE2NDkxODkzMDJ9.e-W58nwHitciSl1UvM8JWEe2teqvX3rZhQU_LrQB8GA` in Authorization header.
 
 Tokens are passed along with the http header as 
 ```
