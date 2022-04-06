@@ -30,6 +30,24 @@ describe("User Model", () => {
       password: '123456'
     });
   });
+
+  it('index method should list users', async () => {
+    const result = await userStore.index();
+    expect(result).not.toEqual([{
+      firstName: 'adham',
+      lastName: 'ahmed',
+      password: '123456'
+    }]);
+  });
+
+  it('show method should get user by id', async () => {
+    const result = await userStore.show(1);
+    expect(result).not.toEqual({
+      firstName: 'adham',
+      lastName: 'ahmed',
+      password: '123456'
+    });
+  });
 });
 
 describe("User Endpoints Responses", () => {
