@@ -9,8 +9,8 @@
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./build --onSuccess \"node ./build/server.js\"",
     "jasmine": "jasmine",
     "test": "set ENV=test&& db-migrate --env test up && npm run build && npm run jasmine && db-migrate --env test reset",
-    "drop_dev":"db-migrate db:drop storefront",
-    "drop_test":"db-migrate db:drop storefront_test",
+    "drop_dev": "db-migrate db:drop storefront",
+    "drop_test": "db-migrate db:drop storefront_test",
     "tsc": "tsc"
   },
   "keywords": [],
@@ -22,9 +22,11 @@
     "@types/jasmine": "^4.0.2",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/pg": "^8.6.5",
+    "@types/supertest": "^2.0.12",
     "jasmine": "^4.0.2",
     "jasmine-spec-reporter": "^7.0.0",
     "jasmine-ts": "^0.4.0",
+    "supertest": "^6.2.2",
     "ts-node": "^8.10.2",
     "tsc-watch": "^4.6.2",
     "typescript": "^4.6.3"

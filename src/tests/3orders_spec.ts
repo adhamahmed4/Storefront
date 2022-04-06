@@ -1,6 +1,9 @@
 import {OrderStore} from "../models/order";
+import supertest from "supertest";
+import app from "../server";
 
 const orderStore = new OrderStore();
+const request = supertest(app);
 
 describe("Order Model", () => {
     it('should have a getCompletedOrders method', () => {
@@ -68,4 +71,18 @@ describe("Order Model", () => {
         product_id: '1'
         });
     });
+  });
+
+
+  describe("Order Endpoints Responses", () => {
+    it(`'getCompletedOrders' method endpoint`, async (): Promise<void> => {
+      const response = await request.get('/orders/1').set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJmaXJzdG5hbWUiOiJhZGhhbSIsImxhc3RuYW1lIjoiYWhtZWQiLCJwYXNzd29yZCI6IiQyYiQxMCRTejEzbTQxVkIxMkhyaHdZNnpLMkNlSEVkeUZtWVBuaHRyellBSTVNRS5QSU9GRTFudmZrSyJ9LCJpYXQiOjE2NDkyNTUzMDN9.lwEz8WbcLbW263I3UInGrOzzYIPiFr9SeO50hH1QhjU');
+      expect(response.status).toEqual(200);
+    });
+  
+    it(`'getCurrentOrder' method endpoint`, async (): Promise<void> => {
+      const response = await request.get('/order/1').set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJmaXJzdG5hbWUiOiJhZGhhbSIsImxhc3RuYW1lIjoiYWhtZWQiLCJwYXNzd29yZCI6IiQyYiQxMCRTejEzbTQxVkIxMkhyaHdZNnpLMkNlSEVkeUZtWVBuaHRyellBSTVNRS5QSU9GRTFudmZrSyJ9LCJpYXQiOjE2NDkyNTUzMDN9.lwEz8WbcLbW263I3UInGrOzzYIPiFr9SeO50hH1QhjU');
+      expect(response.status).toEqual(200);
+    });
+
   });

@@ -1,6 +1,9 @@
 import {ProductStore} from "../models/product";
+import supertest from "supertest";
+import app from "../server";
 
 const productStore = new ProductStore();
+const request = supertest(app);
 
 describe("Product Model", () => {
   it('should have an index method', () => {
@@ -59,6 +62,25 @@ describe("Product Model", () => {
        price: 12, 
        category: 'Beverages' 
       }]);
+  });
+});
+
+
+
+describe("Product Endpoints Responses", () => {
+  it(`'index' method endpoint`, async (): Promise<void> => {
+    const response = await request.get('/products');
+    expect(response.status).toEqual(200);
+  });
+
+  it(`'show' method endpoint`, async (): Promise<void> => {
+    const response = await request.get('/product/1');
+    expect(response.status).toEqual(200);
+  });
+
+  it(`'getProductByCategory' method endpoint`, async (): Promise<void> => {
+    const response = await request.get('/products/Beverages');
+    expect(response.status).toEqual(200);
   });
 });
 
